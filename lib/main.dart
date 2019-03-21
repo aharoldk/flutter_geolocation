@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 void main() => runApp(MyApp());
 
@@ -25,12 +27,13 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
 
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
+  void _startService() async {
+    await MethodChannel('com.piknik.asyik/enable_geolocation').invokeMethod("startService");
+  }
+
+  void _stopService() async {
+    await MethodChannel('com.piknik.asyik/enable_geolocation').invokeMethod("stopService");
   }
 
   @override
@@ -41,22 +44,34 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            Row(
+              children: <Widget>[
+                RaisedButton(
+                  onPressed: _startService,
+                  child: new Text("Start"),
+                ),
+                RaisedButton(
+                  onPressed: _stopService,
+                  child: new Text("Stop"),
+                ),
+              ],
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.display1,
+            Container(
+              height: MediaQuery.of(context).size.height,
+              width: MediaQuery.of(context).size.width,
+              child: GoogleMap(
+                onMapCreated: (GoogleMapController controller) {},
+                rotateGesturesEnabled: false,
+                scrollGesturesEnabled: false,
+                tiltGesturesEnabled: false,
+                initialCameraPosition: CameraPosition(
+                  target: LatLng(37.4219999, -122.0862462),
+                ),
+              ),
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
       ),
     );
   }
