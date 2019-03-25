@@ -1,0 +1,58 @@
+[
+  {
+    "markerId": "1",
+    "position": {
+      "latitude": 0.00002,
+      "longitude": 0.00004
+    },
+    "infoWindow": {
+      "title": "Alwandy Harold Kalangi",
+      "snippet": "Good Developer"
+    }
+  },
+  {
+    "markerId": "2",
+    "position": {
+      "latitude": 0.00003,
+      "longitude": 0.00001
+    },
+    "infoWindow": {
+      "title": "Julian",
+      "snippet": "Master of Exploring"
+    }
+  },
+  {
+    "markerId": "3",
+    "position": {
+      "latitude": -0.00003,
+      "longitude": -0.00001
+    },
+    "infoWindow": {
+      "title": "Julian",
+      "snippet": "Master of Exploring"
+    }
+  },
+  {
+    "markerId": "4",
+    "position": {
+      "latitude":-0.00002,
+      "longitude": -0.00004
+    },
+    "infoWindow": {
+      "title": "Julian",
+      "snippet": "Master of Exploring"
+    }
+  },
+  {
+    "markerId": "5",
+    "position": {
+      "latitude": 0.00003,
+      "longitude": 0.00001
+    },
+    "infoWindow": {
+      "title": "Julian",
+      "snippet": "Master of Exploring"
+    }
+  }
+]
+
