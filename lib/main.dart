@@ -13,9 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Piknik',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      theme: ThemeData.light(),
       home: MyHomePage(title: 'Piknik Background Geolocation'),
     );
   }
@@ -34,6 +32,7 @@ class _MyHomePageState extends State<MyHomePage> {
   String _uiName = "Map";
   Position currentPosition;
   List resultData;
+  bool slider = false;
 
   @override
   void initState() {
@@ -68,6 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void _onChangedSlider(bool value) => setState(() => slider = value);
+
 
   Widget _showUI() {
     Widget widget;
@@ -86,38 +87,65 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          children: <Widget>[
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                RaisedButton(
-                  onPressed: _startService,
-                  child: new Text("Start"),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+          actions: <Widget>[
+            Switch(value: slider, onChanged: _onChangedSlider),
+          ],
+          bottom: PreferredSize(
+              preferredSize: const Size.fromHeight(100.0),
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                      child: TextField(
+                        maxLines: 1,
+                        maxLengthEnforced: true,
+                        decoration: new InputDecoration(
+                          border: new OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(10.0),
+                            ),
+                          ),
+                          filled: true,
+                          hintStyle: new TextStyle(color: Colors.grey[800]),
+                          hintText: "Type in your text",
+                          fillColor: Colors.white70,
+                          prefixIcon: Icon(
+                              Icons.location_on,
+                            color: Colors.red,
+                          ),
+                        ),
+                        style: TextStyle(
+                          height: 0.5,
+                        ),
+                      )
+                    ),
+                    TabBar(
+                      tabs: [
+                        Tab(text: "Map"),
+                        Tab(text: "List"),
+                      ]
+                    )
+                  ],
                 ),
-                RaisedButton(
-                  onPressed: _stopService,
-                  child: new Text("Stop"),
-                ),
-                RaisedButton(
-                  onPressed: () => _changeUI("Map"),
-                  child: new Text("Map"),
-                ),
-                RaisedButton(
-                  onPressed: () => _changeUI("List"),
-                  child: new Text("List"),
-                ),
-              ],
+              ),
+            ),
+        ),
+
+        body: TabBarView(
+          children: [
+            Container(
+              child: currentPosition != null ? _showUI() : null,
             ),
             Container(
               child: currentPosition != null ? _showUI() : null,
             ),
-          ],
+          ]
         ),
       ),
     );
