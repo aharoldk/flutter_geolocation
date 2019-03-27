@@ -96,15 +96,13 @@ class _MyHomePageState extends State<MyHomePage> {
             Switch(value: slider, onChanged: _onChangedSlider),
           ],
           bottom: PreferredSize(
-              preferredSize: const Size.fromHeight(100.0),
+              preferredSize: const Size.fromHeight(120.0),
               child: Container(
                 child: Column(
                   children: <Widget>[
                     Container(
-                      margin: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 0.0),
+                      margin: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 14.0),
                       child: TextField(
-                        maxLines: 1,
-                        maxLengthEnforced: true,
                         decoration: new InputDecoration(
                           border: new OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
@@ -116,12 +114,13 @@ class _MyHomePageState extends State<MyHomePage> {
                           hintText: "Type in your text",
                           fillColor: Colors.white70,
                           prefixIcon: Icon(
-                              Icons.location_on,
+                            Icons.location_on,
+                            size: 20.0,
                             color: Colors.red,
                           ),
                         ),
                         style: TextStyle(
-                          height: 0.5,
+                          fontSize: 16.0,
                         ),
                       )
                     ),
