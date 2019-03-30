@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:piknik_background_geolocation/row_user_nearby.dart';
 
 class ListViewWidget extends StatelessWidget {
   List data;
@@ -7,21 +8,11 @@ class ListViewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-          itemCount: data.length,
-          itemBuilder: (context, position) {
-            return Card(
-              child: Column(children: <Widget>[
-                Text(data[position]['infoWindow']['title']),
-                Text(data[position]['infoWindow']['snippet']),
-                Text("Position : "),
-                Text("Latitude : ${data[position]['position']['latitude']}"),
-                Text("Longitude : ${data[position]['position']['longitude']}"),
-              ],)
-            );
-          }
-      ),
+    return ListView.builder(
+        itemCount: data.length,
+        itemBuilder: (context, position) {
+          return RowUserNearby(data[position]);
+        }
     );
   }
 }

@@ -29,7 +29,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _uiName = "Map";
   Position currentPosition;
   List resultData;
   bool slider = false;
@@ -61,29 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
         .invokeMethod("stopService");
   }
 
-  void _changeUI(String _uiName) {
-    setState(() {
-      this._uiName = _uiName;
-    });
-  }
-
   void _onChangedSlider(bool value) => setState(() => slider = value);
-
-
-  Widget _showUI() {
-    Widget widget;
-
-    switch (_uiName) {
-      case "Map":
-        widget = MapWidget(resultData);
-        break;
-      case "List":
-        widget = ListViewWidget(resultData);
-        break;
-    }
-
-    return widget;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -104,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       margin: EdgeInsets.fromLTRB(20.0, 0.0, 20.0, 14.0),
                       child: TextField(
                         decoration: new InputDecoration(
+                          contentPadding: const EdgeInsets.symmetric(vertical: 0.0),
                           border: new OutlineInputBorder(
                             borderRadius: const BorderRadius.all(
                               const Radius.circular(10.0),
@@ -138,12 +116,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
         body: TabBarView(
           children: [
-            Container(
-              child: currentPosition != null ? _showUI() : null,
-            ),
-            Container(
-              child: currentPosition != null ? _showUI() : null,
-            ),
+            resultData == null ? Container(): MapWidget(resultData),
+            ListViewWidget(resultData)
           ]
         ),
       ),
